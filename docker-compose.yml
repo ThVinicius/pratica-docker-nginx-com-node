@@ -17,11 +17,12 @@ services:
       - node-network
 
   app:
-    build: 
-      context: .
+    build: ./app
     container_name: app
     networks:
       - node-network
+    volumes:
+      - ./app:/app
     tty: true
     depends_on:
       - db
@@ -37,7 +38,6 @@ services:
     depends_on:
       - db
       - app
-
 
 networks:
   node-network:

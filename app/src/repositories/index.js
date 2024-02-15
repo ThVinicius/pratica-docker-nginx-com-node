@@ -8,12 +8,10 @@ const dbConfig = {
   database: "nodedb"
 }
 
-
-
 async function createTable() {
   const dbConnection = await mysql.createConnection(dbConfig)
 
-  var createPeopleTable = "CREATE TABLE IF NOT EXISTS people (name TEXT);";
+  const createPeopleTable = "CREATE TABLE IF NOT EXISTS people (name TEXT);";
 
   await dbConnection.query(createPeopleTable)
 
@@ -23,7 +21,8 @@ async function createTable() {
 async function insertPerson() {
   const dbConnection = await mysql.createConnection(dbConfig)
 
-  var insertPerson = `INSERT INTO people (name) VALUES ('${faker.person.fullName()}');`;
+  const insertPerson =
+    `INSERT INTO people (name) VALUES ('${faker.person.fullName().replace("'", "")}');`;
 
   await dbConnection.query(insertPerson)
 
@@ -33,7 +32,7 @@ async function insertPerson() {
 async function selectPerson() {
   const dbConnection = await mysql.createConnection(dbConfig)
 
-  var people = "SELECT * FROM people;";
+  const people = "SELECT * FROM people;";
 
   const result = await dbConnection.query(people)
 
